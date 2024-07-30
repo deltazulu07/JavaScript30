@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
   <link rel="icon" href="https://fav.farm/🔥" />
+
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
@@ -38,46 +39,104 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-    const fifteen = inventors.filter((invetor) =>  (invetor.year >= 1500 && invetor.year < 1600));
-    // console.table(fifteen);
 
+    //version 1. longest version
+    // function born1500(inventor) {
+    //   return (inventor.year >= 1500) && (inventor.year < 1600); 
+    // }
+
+    // const inventors1500 = inventors.filter(born1500);
+    // console.table(inventors1500);
+
+    //version 2. most condense version
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500 & inventor.year < 1600));
+    console.table(fifteen);
+
+    //version 3. in between version
+    // const v3 = inventors.filter(function(inventor) {
+    //   return (inventor.year >= 1500) && (inventor.year < 1600); 
+    // })
+
+    // console.table(v3);
+    
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-    const namesArray2 = inventors.map(inventor => inventor.first + " " + inventor.last);
-    // console.table(namesArray2);
+    //version 1. write out the function separately 
+    // function fullName(inventor) {
+    //   return inventor.first + ' ' + inventor.last;
+    // }
+
+    // const names = inventors.map(fullName);
+    // console.log(names);
+
+    //inline version
+    const namesV2 = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+    console.log(namesV2);
+    
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    inventors.sort((personA, personB) => personA.year - personB.year); 
-    // console.table(inventors);
+    inventors.sort((inventorA, inventorB) => inventorA.year - inventorB.year);
+    console.table(inventors);
 
+    
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    //what I wrote
+    const ageArray = inventors.map(inventor => inventor.passed - inventor.year);
+    console.table(ageArray);
 
-    const age = inventors.map(inventor => inventor.passed - inventor.year);
-    console.table(age);
+    const SumofAge = ageArray.reduce((total, age) => total + age);
+    console.log(SumofAge);
 
-    const yearsLived = age.reduce((total,num) => total + num);
-    console.log(yearsLived);
+    //official solution
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
 
-    const shorter = inventors.map(inventor => inventor.passed - inventor.year)
-                             .reduce((total,num) => total + num);
-    console.log(shorter);
-
+    console.log(totalYears);
 
 
     // 5. Sort the inventors by years lived
+    inventors.sort((a, b) => (b.passed - b.year) - (a.passed - a.year));
+    console.table(inventors);
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
 
+    // const category = document.querySelector('.mw-category'); //find where all the links are
+    // const links = Array.from(category.querySelectorAll('a')); //select all the links and convert from Nodelist to array
+    // const de = links
+    //             .map(link => link.textContent) //grab all the text of the links
+    //             .filter(name => name.includes('de')); //filter
+    // console.log(de);
+
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+
+    people.sort();
+    console.log(people);
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const vehicles = data.reduce(
+      function(obj, item) {
+        if (! obj[item]) {obj[item] = 0;}
+        obj[item]++;
+        return obj;
+        },
+
+      {}); //start with a blank object, and every time we loop over an item, we seed the blank object
+    console.log(vehicles);
+
+
+
+  
 
   </script>
 </body>
